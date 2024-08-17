@@ -11,6 +11,7 @@
   "author": "kuhaku-space",
   "license": "MIT",
   "devDependencies": {
-    "@vercel/node": "^3.2.8"
+    "@vercel/node": "^3.2.8",
+    "axios": "^1.7.4"
   }
 }
