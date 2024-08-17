@@ -41,6 +41,6 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
     const name = req.query.id as string;
     fetchCodeChefRate(name).then((rate: number | null) => {
         let color = getColor(rate);
-        return res.json({ schemaVersion: 1, label: "CodeChef", message: rate, color: color, cacheSeconds: 3600 })
+        return res.json({ schemaVersion: 1, label: "CodeChef", message: `${rate}`, color: color, cacheSeconds: 3600 })
     });
 }
