@@ -1,4 +1,5 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
+import { NextApiRequest, NextApiResponse } from 'next';
+
 import axios from 'axios';
 
 const colors = {
@@ -25,9 +26,7 @@ function getColor(rate: number | null): string {
 
 const userRatingURL = (name: string) => `https://codechef-api.vercel.app/handle/${name}`;
 
-async function fetchCodeChefRate(name: string | string[] | null): Promise<number | null> {
-    if (name == null) return null;
-    if (Array.isArray(name)) return null;
+async function fetchCodeChefRate(name: string): Promise<number | null> {
     console.log(`Fetching '${name}'...`);
     try {
         const results = await axios.get(userRatingURL(name));
@@ -38,8 +37,8 @@ async function fetchCodeChefRate(name: string | string[] | null): Promise<number
     }
 }
 
-export default function (req: VercelRequest, res: VercelResponse) {
-    const { name = null } = req.query;
+export default function (req: NextApiRequest, res: NextApiResponse) {
+    const name = req.query.id as string;
     fetchCodeChefRate(name).then((rate: number | null) => {
         let color = getColor(rate);
         return res.json({ schemaVersion: 1, label: "CodeChef", message: rate, color: color, cacheSeconds: 3600 })
