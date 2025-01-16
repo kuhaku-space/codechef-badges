@@ -12,6 +12,6 @@
   "license": "MIT",
   "devDependencies": {
     "axios": "^1.7.4",
-    "next": "^14.2.5"
+    "next": "^14.2.10"
   }
 }
