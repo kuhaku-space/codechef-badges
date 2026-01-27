@@ -5,7 +5,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "node --import tsx --test test/**/*.test.ts"
+        "test": "node --import tsx --test test/**/*.test.ts",
+        "build": "next build",
+        "start": "next start",
+        "dev": "next dev"
     },
     "keywords": [ ],
     "author": "kuhaku-space",

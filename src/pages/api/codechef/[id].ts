@@ -1,6 +1,6 @@
+import { fetchCodeChefRate } from '@/services/codechef';
+import { getColor } from '@/utils/colors';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { fetchCodeChefRate } from '../../src/services/codechef';
-import { getColor } from '../../src/utils/colors';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
     try {

@@ -1,7 +1,7 @@
+import { fetchCodeChefRate } from '@/services/codechef';
+import { getColor } from '@/utils/colors';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { fetchCodeChefRate } from '../src/services/codechef';
-import { getColor } from '../src/utils/colors';
 
 describe('CodeChef Badges', () => {
     describe('getColor', () => {
