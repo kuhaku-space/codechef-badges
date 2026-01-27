@@ -1,17 +1,22 @@
 {
-  "name": "compro-badges",
-  "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "kuhaku-space",
-  "license": "MIT",
-  "devDependencies": {
-    "axios": "^1.7.4",
-    "next": "^14.2.10"
-  }
+    "name": "compro-badges",
+    "private": true,
+    "type": "module",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "node --import tsx --test test/**/*.test.ts"
+    },
+    "keywords": [],
+    "author": "kuhaku-space",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^25.0.10",
+        "axios": "^1.7.4",
+        "next": "^14.2.10",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    }
 }

@@ -1,46 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { fetchCodeChefRate } from '../../src/services/codechef';
+import { getColor } from '../../src/utils/colors';
 
-import axios from 'axios';
-
-const colors = {
-    unrated: '#000000',
-    gray: '#666666',
-    green: '#1E7D22',
-    blue: '#3366CC',
-    purple: '#684273',
-    yellow: '#FFBF00',
-    orange: '#FF7F00',
-    red: '#D0011B',
-};
-
-function getColor(rate: number | null): string {
-    if (rate === null) return colors.unrated;
-    else if (rate < 1400) return colors.gray;
-    else if (rate < 1600) return colors.green;
-    else if (rate < 1800) return colors.blue;
-    else if (rate < 2000) return colors.purple;
-    else if (rate < 2200) return colors.yellow;
-    else if (rate < 2500) return colors.orange;
-    else return colors.red;
-}
-
-const userRatingURL = (name: string) => `https://codechef-api.vercel.app/handle/${name}`;
-
-async function fetchCodeChefRate(name: string): Promise<number | null> {
-    console.log(`Fetching '${name}'...`);
-    try {
-        const results = await axios.get(userRatingURL(name));
-        if (!results.data.success) return null;
-        return results.data.currentRating;
-    } catch (error) {
-        return null;
-    }
-}
-
-export default function (req: NextApiRequest, res: NextApiResponse) {
+export default async function (req: NextApiRequest, res: NextApiResponse) {
     const name = req.query.id as string;
-    fetchCodeChefRate(name).then((rate: number | null) => {
-        let color = getColor(rate);
-        return res.json({ schemaVersion: 1, label: "CodeChef", message: `${rate}`, color: color, cacheSeconds: 3600 })
+
+    if (!name) {
+        return res.status(400).json({ error: 'Missing id parameter' });
+    }
+
+    const rate = await fetchCodeChefRate(name);
+    const color = getColor(rate);
+
+    return res.json({
+        schemaVersion: 1,
+        label: "CodeChef",
+        message: `${rate ?? 'Unrated'}`,
+        color: color,
+        cacheSeconds: 3600
     });
 }
