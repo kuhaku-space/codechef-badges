@@ -5,7 +5,12 @@ const userRatingURL = (name: string) => `https://www.codechef.com/users/${name}`
 export async function fetchCodeChefRate(name: string): Promise<number | null> {
     console.log(`Fetching '${name}'...`);
     try {
-        const results = await axios.get(userRatingURL(name));
+        const results = await axios.get(userRatingURL(name), {
+            headers: {
+                // Set a browser-like User-Agent to avoid being blocked by some sites
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
         const html = results.data;
 
         // Use regex to find the rating.
