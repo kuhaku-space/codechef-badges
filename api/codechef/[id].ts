@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { fetchCodeChefRate } from '../../src/services/codechef';
-import { getColor } from '../../src/utils/colors';
+import { fetchCodeChefRate } from '../../src/services/codechef.ts';
+import { getColor } from '../../src/utils/colors.ts';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
     const name = req.query.id as string;
