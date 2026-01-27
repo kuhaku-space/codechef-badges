@@ -13,16 +13,22 @@ export default function Home() {
         }
     }, []);
 
-    const badgeUrl = username
+    const apiUrl = username
         ? `${origin}/api/codechef/${username}`
         : null;
 
-    const markdownCode = badgeUrl
-        ? `[![CodeChef Rating](${badgeUrl})](https://www.codechef.com/users/${username})`
+    // Use Shields.io to render the badge from our JSON API
+    // Note: This requires the API to be publicly accessible
+    const badgeImageUrl = apiUrl
+        ? `https://img.shields.io/endpoint?url=${encodeURIComponent(apiUrl)}`
+        : null;
+
+    const markdownCode = badgeImageUrl
+        ? `[![CodeChef Rating](${badgeImageUrl})](https://www.codechef.com/users/${username})`
         : '';
 
-    const htmlCode = badgeUrl
-        ? `<a href="https://www.codechef.com/users/${username}"><img src="${badgeUrl}" alt="CodeChef Rating"></a>`
+    const htmlCode = badgeImageUrl
+        ? `<a href="https://www.codechef.com/users/${username}"><img src="${badgeImageUrl}" alt="CodeChef Rating"></a>`
         : '';
 
     return (
@@ -56,7 +62,7 @@ export default function Home() {
                     <>
                         <div className={styles.preview}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={badgeUrl!} alt={`Rating for ${username}`} />
+                            <img src={badgeImageUrl!} alt={`Rating for ${username}`} />
                         </div>
 
                         <div className={styles.codeSection}>
