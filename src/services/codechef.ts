@@ -13,14 +13,15 @@ export async function fetchCodeChefRate(name: string): Promise<number | null> {
         });
         const html = results.data;
 
-        // Use regex to find the rating.
-        // Logic: Look for the specific rating class structure often found in CodeChef profiles.
-        // Usually: <div class="rating-number">2600</div> or matching JSON data if embedded.
-        // A simple regex to find the number within the rating-number div.
-        const ratingMatch = html.match(/<div class="rating-number">(\d+)<\/div>/);
-
-        if (ratingMatch && ratingMatch[1]) {
-            return parseInt(ratingMatch[1], 10);
+        // Rating history is embedded as JSON in Drupal.settings under date_versus_rating.all.
+        // The last entry in the array is the most recent contest rating.
+        const allBlockMatch = html.match(/"date_versus_rating":\{"all":\[([\s\S]*?)\]\}/);
+        if (allBlockMatch) {
+            const ratingMatches = allBlockMatch[0].match(/"rating":"(\d+)"/g);
+            if (ratingMatches && ratingMatches.length > 0) {
+                const lastMatch = ratingMatches[ratingMatches.length - 1].match(/"rating":"(\d+)"/);
+                if (lastMatch) return parseInt(lastMatch[1], 10);
+            }
         }
 
         console.error(`Could not find rating in HTML for ${name}`);
