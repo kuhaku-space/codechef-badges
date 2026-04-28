@@ -47,22 +47,22 @@ Returns a JSON response compatible with Shields.io endpoint.
 
 ### Prerequisites
 - Node.js
-- npm or yarn
+- pnpm
 
 ### Installation
 ```bash
-npm install
+pnpm install
 ```
 
 ### Run Locally
 ```bash
-npm run dev
+pnpm dev
 ```
 Access the app at `http://localhost:3000`.
 
 ### Run Tests
 ```bash
-npm test
+pnpm test
 ```
 
 ## ☁️ Deployment
